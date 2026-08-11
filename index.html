@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Happy Birthday 🎂</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #16001f, #3b0a45, #120018);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+      padding: 35px 25px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 25px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      animation: muncul 1.2s ease;
+    }
+
+    .emoji {
+      font-size: 70px;
+      animation: goyang 2s infinite;
+    }
+
+    h1 {
+      margin-top: 15px;
+      font-size: 32px;
+    }
+
+    .nama {
+      color: #ff9de2;
+    }
+
+    .subtitle {
+      margin-top: 12px;
+      color: #ddd;
+      line-height: 1.6;
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 13px 25px;
+      border: none;
+      border-radius: 30px;
+      background: #ff5fc7;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 5px 20px rgba(255,95,199,0.4);
+    }
+
+    button:hover {
+      transform: scale(1.08);
+      background: #ff82d7;
+    }
+
+    #pesan {
+      display: none;
+      margin-top: 25px;
+      line-height: 1.8;
+      color: #f5e8f3;
+      animation: muncul 1s ease;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 20px;
+      animation: naik 6s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes muncul {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes goyang {
+      0%, 100% {
+        transform: rotate(-5deg);
+      }
+      50% {
+        transform: rotate(5deg);
+      }
+    }
+
+    @keyframes naik {
+      from {
+        transform: translateY(0);
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.8;
+      }
+      to {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="emoji">🎂</div>
+
+    <h1>
+      Happy Birthday,
+      <span class="nama">Nama Kamu</span> ❤️
+    </h1>
+
+    <p class="subtitle">
+      Hari ini bukan cuma hari biasa...
+      karena hari ini adalah hari lahir seseorang yang spesial.
+    </p>
+
+    <button onclick="bukaPesan()">
+      💌 Buka Pesannya
+    </button>
+
+    <div id="pesan">
+
+      <p>
+        Selamat ulang tahun yaa! 🎉
+      </p>
+
+      <p>
+        Semoga di umur yang baru ini,
+        semua hal baik datang satu per satu.
+        Semoga apa yang kamu impikan bisa tercapai,
+        dan semoga kamu selalu dikelilingi orang-orang
+        yang benar-benar sayang sama kamu.
+      </p>
+
+      <p>
+        Jangan lupa bahagia.
+        Jangan terlalu keras sama diri sendiri.
+        Dan kalau suatu hari semuanya terasa berat,
+        semoga kamu selalu punya alasan untuk tetap tersenyum. ❤️
+      </p>
+
+      <p>
+        Terima kasih sudah menjadi bagian dari cerita ini.
+      </p>
+
+      <p>
+        Sekali lagi...
+        <br>
+        <strong>Happy Birthday! 🎂✨</strong>
+      </p>
+
+    </div>
+
+  </div>
+
+  <script>
+
+    function bukaPesan() {
+      document.getElementById("pesan").style.display = "block";
+    }
+
+    function buatHati() {
+
+      const heart = document.createElement("div");
+
+      heart.className = "heart";
+      heart.innerHTML = "❤️";
+
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration =
+        (Math.random() * 3 + 4) + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 7000);
+    }
+
+    setInterval(buatHati, 700);
+
+  </script>
+
+</body>
+</html>
