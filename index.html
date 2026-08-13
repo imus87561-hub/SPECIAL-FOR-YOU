@@ -13,19 +13,72 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: "Poppins", sans-serif;
+    font-family: Arial, sans-serif;
     background: #f7f5f2;
-    color: #FFB8BF;
+    color: #333;
     overflow-x: hidden;
 }
+
+/* BACKGROUND */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.9), transparent 25%),
+        radial-gradient(circle at 80% 70%, rgba(230,225,215,.6), transparent 30%);
+    pointer-events: none;
+    z-index: -2;
+}
+
+/* BINTANG */
+
+.star {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    background: #aaa;
+    border-radius: 50%;
+    animation: twinkle 3s infinite ease-in-out;
+    opacity: .4;
+    z-index: -1;
+}
+
+.star:nth-child(1) { left: 10%; top: 20%; animation-delay: .3s; }
+.star:nth-child(2) { left: 80%; top: 15%; animation-delay: 1s; }
+.star:nth-child(3) { left: 25%; top: 70%; animation-delay: 1.5s; }
+.star:nth-child(4) { left: 90%; top: 55%; animation-delay: .7s; }
+.star:nth-child(5) { left: 50%; top: 35%; animation-delay: 2s; }
+.star:nth-child(6) { left: 15%; top: 85%; animation-delay: 1.2s; }
+
+@keyframes twinkle {
+    0%,100% {
+        transform: scale(.5);
+        opacity: .2;
+    }
+
+    50% {
+        transform: scale(1.8);
+        opacity: .8;
+    }
+}
+
+/* CONTAINER */
 
 .container {
     max-width: 420px;
     margin: auto;
-    padding: 30px 20px 50px;
+    padding: 30px 20px 60px;
     text-align: center;
 }
+
+/* OPENING */
 
 .hero {
     min-height: 100vh;
@@ -36,106 +89,287 @@ body {
 }
 
 .small {
-    font-size: 13px;
-    letter-spacing: 3px;
+    font-size: 11px;
+    letter-spacing: 4px;
     color: #999;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+
+    animation: fadeDown 1.5s ease forwards;
 }
 
 h1 {
-    font-size: 34px;
-    font-weight: 500;
+    font-size: 38px;
+    font-weight: 400;
     margin-bottom: 20px;
+
+    animation: titleAppear 2s ease forwards;
 }
 
 .hero p {
     font-size: 14px;
     color: #777;
-    line-height: 1.8;
+    line-height: 1.9;
     margin-bottom: 30px;
+
+    animation: fadeUp 2s ease forwards;
 }
 
-button {
-    border: none;
-    background: #333;
-    color: white;
-    padding: 13px 25px;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 13px;
-    transition: 0.3s;
+@keyframes titleAppear {
+    from {
+        opacity: 0;
+        transform: scale(.8);
+        letter-spacing: 10px;
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+        letter-spacing: 0;
+    }
 }
 
-button:hover {
-    transform: scale(1.05);
-}
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
 
-.photo {
-    margin: 70px 0;
-}
-
-.photo img {
-    width: 100%;
-    border-radius: 20px;
-    display: block;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-}
-
-.caption {
-    margin-top: 15px;
-    font-size: 13px;
-    color: #888;
-    line-height: 1.7;
-}
-
-.message {
-    padding: 40px 10px;
-}
-
-.message h2 {
-    font-size: 24px;
-    font-weight: 500;
-    margin-bottom: 20px;
-}
-
-.message p {
-    font-size: 14px;
-    line-height: 2;
-    color: #666;
-}
-
-.footer {
-    margin-top: 70px;
-    font-size: 12px;
-    color: #aaa;
-    letter-spacing: 1px;
-}
-
-.fade {
-    opacity: 0;
-    transform: translateY(30px);
-    animation: muncul 1.2s forwards;
-}
-
-@keyframes muncul {
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* BUTTON */
+
+button {
+    border: none;
+    background: #333;
+    color: white;
+    padding: 14px 27px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: .3s;
+
+    animation: buttonAppear 2.5s ease forwards;
+}
+
+button:hover {
+    transform: scale(1.08);
+}
+
+@keyframes buttonAppear {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* FOTO */
+
+.photo {
+    margin: 90px 0;
+    opacity: 0;
+    transform: translateY(70px) scale(.94);
+    transition: all 1.2s ease;
+}
+
+.photo.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.photo img {
+    width: 100%;
+    border-radius: 22px;
+    display: block;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.13);
+
+    transition: transform 1s ease;
+}
+
+.photo:hover img {
+    transform: scale(1.03);
+}
+
+.caption {
+    margin-top: 18px;
+    font-size: 13px;
+    color: #888;
+    line-height: 1.8;
+
+    opacity: 0;
+    transform: translateY(15px);
+    transition: 1s ease .4s;
+}
+
+.photo.show .caption {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* PESAN */
+
+.message {
+    padding: 50px 10px;
+
+    opacity: 0;
+    transform: translateY(50px);
+    transition: 1s ease;
+}
+
+.message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.message h2 {
+    font-size: 25px;
+    font-weight: 400;
+    margin-bottom: 25px;
+}
+
+.message p {
+    font-size: 14px;
+    line-height: 2.1;
+    color: #666;
+}
+
+/* GARIS */
+
+.line {
+    width: 40px;
+    height: 1px;
+    background: #bbb;
+    margin: 25px auto;
+}
+
+/* FOOTER */
+
+.footer {
+    margin-top: 80px;
+    font-size: 11px;
+    color: #aaa;
+    letter-spacing: 2px;
+}
+
+/* TOMBOL MUSIK */
+
+.music {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+
+    width: 48px;
+    height: 48px;
+
+    border-radius: 50%;
+
+    background: #333;
+    color: white;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+
+    z-index: 100;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,.2);
+}
+
+.music.playing {
+    animation: rotateMusic 3s linear infinite;
+}
+
+@keyframes rotateMusic {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* PARTIKEL */
+
+.particle {
+    position: fixed;
+    top: -10px;
+    font-size: 12px;
+    opacity: .5;
+    pointer-events: none;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    from {
+        transform: translateY(-20px) rotate(0deg);
+    }
+
+    to {
+        transform: translateY(110vh) rotate(360deg);
+    }
+}
+
 </style>
 </head>
 
+
 <body>
+
+<!-- BINTANG -->
+
+<div class="star"></div>
+<div class="star"></div>
+<div class="star"></div>
+<div class="star"></div>
+<div class="star"></div>
+<div class="star"></div>
+
+
+<!-- MUSIK -->
+
+<audio id="musik" loop>
+    <source src="lagu.mp3" type="audio/mpeg">
+</audio>
+
 
 <div class="container">
 
     <!-- OPENING -->
-    <section class="hero fade">
 
-        <div class="small">A LITTLE MESSAGE FOR YOU</div>
+    <section class="hero">
 
-        <h1>Happy Birthday Dekaaa ✨</h1>
+        <div class="small">
+            A LITTLE MESSAGE FOR YOU
+        </div>
+
+        <h1>
+            Happy Birthday ✨
+        </h1>
 
         <p>
             Hari ini bukan cuma tentang bertambahnya usia,
@@ -143,18 +377,21 @@ button:hover {
             sampai sejauh ini.
         </p>
 
-        <button onclick="document.getElementById('isi').scrollIntoView({behavior:'smooth'})">
-            Buka pesannya
+        <button onclick="mulai()">
+            Buka pesannya 🎵
         </button>
 
     </section>
 
 
     <!-- ISI -->
+
     <section id="isi">
 
+
         <!-- FOTO 1 -->
-        <div class="photo fade">
+
+        <div class="photo reveal">
 
             <img src="foto1.jpeg">
 
@@ -166,30 +403,42 @@ button:hover {
         </div>
 
 
-        <!-- PESAN -->
-        <div class="message fade">
+        <!-- PESAN 1 -->
 
-            <h2>For you.</h2>
+        <div class="message reveal">
+
+            <h2>
+                Untuk kamu.
+            </h2>
+
+            <div class="line"></div>
 
             <p>
+
                 Selamat ulang tahun yaa.
+
+                <br><br>
+
                 Semoga di umur yang baru ini,
                 kamu selalu dikelilingi hal-hal baik,
                 orang-orang baik, dan alasan-alasan
                 kecil yang bikin kamu tetap tersenyum.
+
                 <br><br>
 
                 Jangan terlalu keras sama diri sendiri.
                 Kamu sudah berjalan sejauh ini,
-                dan itu sendiri sudah sesuatu yang patut
-                dibanggakan.
+                dan itu sendiri sudah sesuatu
+                yang patut dibanggakan.
+
             </p>
 
         </div>
 
 
         <!-- FOTO 2 -->
-        <div class="photo fade">
+
+        <div class="photo reveal">
 
             <img src="foto2.jpeg">
 
@@ -201,24 +450,33 @@ button:hover {
         </div>
 
 
-        <!-- CLOSING -->
-        <div class="message fade">
+        <!-- PESAN 2 -->
+
+        <div class="message reveal">
+
+            <div class="line"></div>
 
             <p>
+
                 Semoga semua yang sedang kamu perjuangkan
                 perlahan menemukan jalannya.
+
                 <br><br>
 
-                Tetap jadi kamu yang sekarang,
-                karena menurutku,
-                kamu sudah cukup baik dengan caramu sendiri.
+                Semoga tahun ini membawa lebih banyak
+                cerita yang bisa kamu kenang,
+                lebih banyak alasan untuk tersenyum,
+                dan lebih sedikit hal yang membuatmu
+                harus berpura-pura kuat.
+
             </p>
 
         </div>
 
 
         <!-- FOTO 3 -->
-        <div class="photo fade">
+
+        <div class="photo reveal">
 
             <img src="foto3.jpeg">
 
@@ -229,14 +487,182 @@ button:hover {
 
         </div>
 
+
+        <!-- PESAN TERAKHIR -->
+
+        <div class="message reveal">
+
+            <h2>
+                Last thing...
+            </h2>
+
+            <div class="line"></div>
+
+            <p>
+
+                Tetap jadi kamu yang sekarang.
+
+                <br><br>
+
+                Karena mungkin kamu nggak selalu sadar,
+                tapi keberadaan kamu bisa berarti
+                lebih banyak dari yang kamu kira.
+
+                <br><br>
+
+                Sekali lagi,
+                selamat ulang tahun.
+
+                <br><br>
+
+                Semoga tahun ini menjadi salah satu
+                chapter terbaik dalam hidup kamu. 🤍
+
+            </p>
+
+        </div>
+
+
     </section>
 
 
     <div class="footer">
-        made with a little thought &nbsp;·&nbsp; 2026
+        made with a little thought · 2026
     </div>
 
 </div>
+
+
+<!-- MUSIC BUTTON -->
+
+<div
+    class="music"
+    id="musicButton"
+    onclick="toggleMusic()">
+
+    🎵
+
+</div>
+
+
+<script>
+
+/* MULAI */
+
+function mulai() {
+
+    const musik = document.getElementById("musik");
+    const tombol = document.getElementById("musicButton");
+
+    musik.play();
+
+    tombol.style.display = "flex";
+    tombol.classList.add("playing");
+
+    document.getElementById("isi").scrollIntoView({
+        behavior: "smooth"
+    });
+
+    createParticles();
+}
+
+
+/* PLAY / PAUSE */
+
+function toggleMusic() {
+
+    const musik = document.getElementById("musik");
+    const tombol = document.getElementById("musicButton");
+
+    if (musik.paused) {
+
+        musik.play();
+
+        tombol.innerHTML = "🎵";
+        tombol.classList.add("playing");
+
+    } else {
+
+        musik.pause();
+
+        tombol.innerHTML = "🔇";
+        tombol.classList.remove("playing");
+
+    }
+
+}
+
+
+/* SCROLL ANIMATION */
+
+const elements = document.querySelectorAll(".reveal");
+
+const observer = new IntersectionObserver(
+
+    function(entries) {
+
+        entries.forEach(function(entry) {
+
+            if (entry.isIntersecting) {
+
+                entry.target.classList.add("show");
+
+            }
+
+        });
+
+    },
+
+    {
+        threshold: 0.15
+    }
+
+);
+
+elements.forEach(function(element) {
+
+    observer.observe(element);
+
+});
+
+
+/* PARTIKEL JATUH */
+
+function createParticles() {
+
+    setInterval(function() {
+
+        const particle = document.createElement("div");
+
+        particle.classList.add("particle");
+
+        particle.innerHTML = Math.random() > .5
+            ? "✦"
+            : "·";
+
+        particle.style.left =
+            Math.random() * 100 + "vw";
+
+        particle.style.animationDuration =
+            (4 + Math.random() * 5) + "s";
+
+        particle.style.fontSize =
+            (8 + Math.random() * 8) + "px";
+
+        document.body.appendChild(particle);
+
+
+        setTimeout(function() {
+
+            particle.remove();
+
+        }, 9000);
+
+    }, 700);
+
+}
+
+</script>
 
 </body>
 </html>
